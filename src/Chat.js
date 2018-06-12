@@ -13,26 +13,26 @@ class Chat extends Component {
         {
           id: 1,
           userName: 'dstrus',
-          body: 'YEEEET ggx gang',
+          body: 'asdfasdf',
         },
         {
           id: 2,
           userName: 'dpalazzo',
-          body: 'f in the chat',
+          body: 'asdfasdfasdfas',
         },
       ],
     };
   }
 
-  addMessage = () => {
+  // shorthand - key is same as variable name
+  addMessage = (body) => {
     const messages = [...this.state.messages];
     messages.push({
       id: Date.now(),
       userName: 'jieun',
-      body: 'i\'m excited for dinner',
+      body,
     });
 
-    // shorthand - key is same as variable name
     this.setState({ messages });
   }
 
