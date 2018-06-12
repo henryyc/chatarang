@@ -29,7 +29,7 @@ class Chat extends Component {
     const messages = [...this.state.messages];
     messages.push({
       id: Date.now(),
-      userName: 'jieun',
+      userName: this.props.user.userName,
       body,
     });
 

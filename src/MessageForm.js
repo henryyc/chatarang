@@ -5,11 +5,13 @@ class MessageForm extends Component {
     body: '',
   }
 
+  // submit message
   handleSubmit = (ev) => {
     ev.preventDefault();
     this.props.addMessage(this.state.body);
   }
 
+  // update text form display
   handleChange = (ev) => {
     this.setState({ body: ev.target.value });
   }
