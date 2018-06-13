@@ -9,7 +9,6 @@ const Message = (props) => {
       className="Message"
       style={styles.message}
     >
-      <Avatar />
 
       <div
         className="Details"
