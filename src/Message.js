@@ -3,24 +3,14 @@ import React from 'react';
 import Avatar from './Avatar';
 import Metadata from './Metadata';
 
-const Message = (props) => {
+const Message = ({ message }) => {
   return (
-    <div
-      className="Message"
-      style={styles.message}
-    >
-
-      <div
-        className="Details"
-        style={styles.messageAndDetails}
-      >
-        <Metadata message={props.message} />
-
-        <div
-          className="body"
-          style={styles.body}
-        >
-          {props.message.body}
+    <div className="Message" style={styles.message}>
+      <Avatar user={message.user} />
+      <div className="details" style={styles.details}>
+        <Metadata message={message} />
+        <div className="body">
+          {message.body}
         </div>
       </div>
     </div>
@@ -34,14 +24,9 @@ const styles = {
     padding: '0 1rem',
   },
 
-  messageAndDetails: {
+  details: {
     flex: 1,
     paddingLeft: '0.5rem',
-  },
-
-  body: {
-    margin: 0,
-    fontFamily: 'Raleway, sans-serif',
   },
 }
 

@@ -9,18 +9,7 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      messages: [
-        {
-          id: 1,
-          userName: 'dstrus',
-          body: 'asdfasdf',
-        },
-        {
-          id: 2,
-          userName: 'dpalazzo',
-          body: 'asdfasdfasdfas',
-        },
-      ],
+      messages: [],
     };
   }
 
@@ -29,7 +18,7 @@ class Chat extends Component {
     const messages = [...this.state.messages];
     messages.push({
       id: Date.now(),
-      userName: this.props.user.userName,
+      user: this.props.user,
       body,
     });
 
