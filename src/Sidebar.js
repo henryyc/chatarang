@@ -17,7 +17,7 @@ const Sidebar = ({ user, signOut }) => {
           ...styles.h1,
         }}
       >
-        XTBC 18
+        Chatarang
       </h1>
 
       <RoomList />

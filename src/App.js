@@ -9,12 +9,22 @@ class App extends Component {
     user: {},
   }
 
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) {
+      this.setState({ user });
+    }
+  }
+
   signedIn = () => {
     return this.state.user.uid;
   };
 
+  // update state of user and store user in local storage
   handleAuth = (user) => {
     this.setState({ user });
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   signOut = () => {
