@@ -15,11 +15,15 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    base.syncState('general', {
+    base.syncState(this.props.room, {
       context: this,
       state: 'messages',
       asArray: true,
     });
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.room);
   }
 
   // shorthand - key is same as variable name
@@ -39,7 +43,7 @@ class Chat extends Component {
       <div className="Chat" style={styles}>
         <ChatHeader />
         <MessageList messages={this.state.messages} />
-        <MessageForm addMessage={this.addMessage}/>
+        <MessageForm addMessage={this.addMessage} />
       </div>
     );
   }
