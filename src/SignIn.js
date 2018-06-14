@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
+import { auth, googleProvider } from './base'
+
 class SignIn extends Component {
   state = {
     email: '',
@@ -16,9 +18,15 @@ class SignIn extends Component {
 
     this.props.handleAuth({
       uid: 'asjdfa',
-      userName: this.state.email,
+      displayName: this.state.email,
       email: this.state.email,
     });
+  }
+
+  // sign in with google
+  authenticate = () => {
+    auth
+      .signInWithPopup(googleProvider);
   }
 
   render() {
@@ -36,7 +44,7 @@ class SignIn extends Component {
             onSubmit={this.handleSubmit}
           >
             <h1>Welcome!</h1>
-            <label htmlFor="email" className={css(styles.label)}>
+            {/* <label htmlFor="email" className={css(styles.label)}>
               Email
             </label>
             <input
@@ -49,11 +57,22 @@ class SignIn extends Component {
             <button type="submit" className={css(styles.button)}>
               Sign In
             </button>
+
+            or */}
+
+            <button
+              type="button"
+              className={css(styles.button)}
+              onClick={this.authenticate}
+            >
+              <i className={`fab fa-google ${css(styles.brandIcon)}`}></i>
+              Sign In With Google
+            </button>
           </form>
 
           <div className="blurb">
             <h2 className={css(styles.h2)}>You're in good company.</h2>
-            <p>Ones of people are already using Chatarang!</p>
+            <p>:) jk!</p>
           </div>
         </main>
       </div>
@@ -95,10 +114,10 @@ const styles = StyleSheet.create({
   },
   form: {
     width: '40rem',
-    height: '15rem',
     backgroundColor: 'white',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
     marginBottom: '2rem',
+    paddingBottom: '2rem',
   },
   label: {
     display: 'block',
@@ -130,6 +149,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff3333',
     color: 'white',
     width: '20rem',
+  },
+  brandIcon: {
+    marginRight: '1rem',
   },
 });
 
