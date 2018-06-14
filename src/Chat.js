@@ -19,16 +19,15 @@ class Chat extends Component {
     this.syncMessages();
   }
 
+  // update room
   componentDidUpdate(prevProps) {
-    console.log(this.props.room);
-
     if (prevProps !== this.props) {
       this.syncMessages();
     }
   }
 
+  // sync messages w/ firebase
   syncMessages = () => {
-
     if (this.state.rebaseBinding) {
       base.removeBinding(this.state.rebaseBinding);
     }
