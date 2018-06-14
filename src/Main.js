@@ -6,12 +6,15 @@ import Chat from './Chat';
 class Main extends Component {
 
   state = {
-    room: 'general',
-  }
+    room: {
+      name: 'smiley-face',
+      description: 'wholesome memes only',
+    },
+  };
 
   changeRoom = (room) => {
     this.setState({ room });
-  }
+  };
 
   render() {
     return (
@@ -21,7 +24,10 @@ class Main extends Component {
           signOut={this.props.signOut}
           changeRoom={this.changeRoom}
         />
-        <Chat user={this.props.user} room={this.state.room} />
+        <Chat
+          user={this.props.user}
+          room={this.state.room}
+        />
       </div>
     );
   }
