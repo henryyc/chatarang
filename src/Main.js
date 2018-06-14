@@ -7,12 +7,12 @@ class Main extends Component {
 
   state = {
     room: {
-      name: 'smiley-face',
-      description: 'wholesome memes only',
+      name: 'general',
+      description: 'chat about :)',
     },
   };
 
-  changeRoom = (room) => {
+  loadRoom = (room) => {
     this.setState({ room });
   };
 
@@ -22,7 +22,7 @@ class Main extends Component {
         <Sidebar
           user={this.props.user}
           signOut={this.props.signOut}
-          changeRoom={this.changeRoom}
+          loadRoom={this.loadRoom}
         />
         <Chat
           user={this.props.user}

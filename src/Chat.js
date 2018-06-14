@@ -11,19 +11,35 @@ class Chat extends Component {
 
     this.state = {
       messages: [],
+      rebaseBinding: null,
     };
   }
 
   componentDidMount() {
-    base.syncState('general/messages', {
+    this.syncMessages();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(this.props.room);
+
+    if (prevProps !== this.props) {
+      this.syncMessages();
+    }
+  }
+
+  syncMessages = () => {
+
+    if (this.state.rebaseBinding) {
+      base.removeBinding(this.state.rebaseBinding);
+    }
+
+    const rebaseBinding = base.syncState(`${this.props.room.name}/messages`, {
       context: this,
       state: 'messages',
       asArray: true,
     });
-  }
 
-  componentDidUpdate() {
-    console.log(this.props.room);
+    this.setState({ rebaseBinding });
   }
 
   // shorthand - key is same as variable name
