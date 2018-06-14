@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
 
 class RoomForm extends Component {
+  state = {
+    name: '',
+    description: '',
+  };
+
+  // update form
+  handleChange = (ev) => {
+    const update = {};
+    update[ev.target.name] = ev.target.value;
+    this.setState(update);
+  };
+
+  handleSubmit = (ev) => {
+    ev.preventDefault();
+
+    this.props.addRoom({
+      name: this.state.name,
+      description: this.state.description,
+    });
+
+    this.props.hideRoomForm();
+  };
+
   render() {
     return (
       <div className="RoomForm">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <p>
             <label htmlFor="name">Room Name</label>
             <input
               type="text"
               name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+              autoFocus
             />
           </p>
           <p>
@@ -17,6 +43,9 @@ class RoomForm extends Component {
             <input
               type="text"
               name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+              autoFocus
             />
           </p>
           <div>

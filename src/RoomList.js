@@ -39,11 +39,11 @@ class RoomList extends Component {
   }
 
   render() {
-
     // if button is clicked, show room form instead of room list
     if (this.state.showRoomForm) {
       return (
         <RoomForm
+          addRoom={this.addRoom}
           hideRoomForm={this.hideRoomForm}
         />
       );
