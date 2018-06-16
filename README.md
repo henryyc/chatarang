@@ -1,3 +1,3 @@
 # Chatarang
 
-## Slack clone being built with React.js
+Slack clone being built with React.js

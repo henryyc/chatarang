@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
-import { auth, googleProvider } from './base'
+import { auth, googleProvider, githubProvider } from './base'
 
 class SignIn extends Component {
   state = {
@@ -24,9 +24,9 @@ class SignIn extends Component {
   }
 
   // sign in with google
-  authenticate = () => {
+  authenticate = (provider) => {
     auth
-      .signInWithPopup(googleProvider);
+      .signInWithPopup(provider);
   }
 
   render() {
@@ -63,10 +63,19 @@ class SignIn extends Component {
             <button
               type="button"
               className={css(styles.button)}
-              onClick={this.authenticate}
+              onClick={() => this.authenticate(googleProvider)}
             >
               <i className={`fab fa-google ${css(styles.brandIcon)}`}></i>
               Sign In With Google
+            </button>
+
+            <button
+              type="button"
+              className={css(styles.button)}
+              onClick={() => this.authenticate(githubProvider)}
+            >
+              <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
+              Sign In With Github
             </button>
           </form>
 

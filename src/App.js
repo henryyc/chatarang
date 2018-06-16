@@ -50,7 +50,7 @@ class App extends Component {
 
   handleUnath = () => {
     this.setState({ user: {} });
-    localStorage.remove('user');
+    localStorage.removeItem('user');
   }
 
   signOut = () => {
