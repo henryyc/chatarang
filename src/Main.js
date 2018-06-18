@@ -6,11 +6,22 @@ import Chat from './Chat';
 class Main extends Component {
 
   state = {
-    room: {
-      name: 'general',
-      description: 'chat about :)',
-    },
+    room: {},
   };
+
+  componentDidMount() {
+    this.loadRoom({
+      name: this.props.match.params.roomName,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.roomName !== this.props.match.params.roomName) {
+      this.loadRoom({
+        name: this.props.match.params.roomName,
+      });
+    }
+  }
 
   loadRoom = (room) => {
     this.setState({ room });

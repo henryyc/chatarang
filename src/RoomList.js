@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import RoomLink from './RoomLink';
 import RoomForm from './RoomForm';
 import base from './base';
 
 class RoomList extends Component {
-
   state = {
     rooms: {},
-    showRoomForm: false,
   };
 
   // get list of rooms from firebase
@@ -23,61 +22,58 @@ class RoomList extends Component {
     )
   }
 
-  showRoomForm = () => {
-    this.setState({ showRoomForm: true });
-  }
-
-  hideRoomForm = () => {
-    this.setState({ showRoomForm: false });
-  }
-
   // add a new room
   addRoom = (room) => {
     const rooms = {...this.state.rooms};
     rooms[room.name] = room;
     this.setState({ rooms });
-  }
+  };
 
   render() {
-    // if button is clicked, show room form instead of room list
-    if (this.state.showRoomForm) {
-      return (
-        <RoomForm
-          addRoom={this.addRoom}
-          hideRoomForm={this.hideRoomForm}
+    return (
+      <Switch>
+        <Route
+          path="/rooms/new"
+          render={(navProps) => (
+            <RoomForm
+              addRoom={this.addRoom}
+              {...navProps}
+            />
+          )}
         />
-      );
-    }
+        <Route
+          render={
+            () => (
+              <nav className={`RoomList ${css(styles.nav)}`}>
+                <div className={css(styles.heading)}>
+                  <h2 className={css(styles.h2)}>Rooms</h2>
+                  <Link
+                    className={css(styles.button)}
+                    to="/rooms/new"
+                  >
+                    <i className="fas fa-plus-circle"></i>
+                  </Link>
+                </div>
 
-    else {
-      return (
-        <nav className={`RoomList ${css(styles.nav)}`}>
-          <div className={css(styles.heading)}>
-            <h2 className={css(styles.h2)}>Rooms</h2>
-            <button
-              className={css(styles.button)}
-              onClick={this.showRoomForm}
-            >
-              <i className="fas fa-plus-circle"></i>
-            </button>
-          </div>
-
-          <ul className={css(styles.list)}>
-            {
-              Object.keys(this.state.rooms).map(
-                (roomName) => (
-                  <RoomLink
-                    key={roomName}
-                    room={this.state.rooms[roomName]}
-                    loadRoom={this.props.loadRoom}
-                  />
-                )
-              )
-            }
-          </ul>
-        </nav>
-      );
-    }
+                <ul className={css(styles.list)}>
+                  {
+                    Object.keys(this.state.rooms).map(
+                      (roomName) => (
+                        <RoomLink
+                          key={roomName}
+                          room={this.state.rooms[roomName]}
+                          loadRoom={this.props.loadRoom}
+                        />
+                      )
+                    )
+                  }
+                </ul>
+              </nav>
+            )
+          }
+        />
+      </Switch>
+    );
   }
 }
 
