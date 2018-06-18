@@ -1,33 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
-import { auth, googleProvider, githubProvider } from './base'
+import { auth, googleProvider, githubProvider, facebookProvider } from './base'
 
 class SignIn extends Component {
   state = {
     email: '',
-
-  };
-
-  handleChange = (ev) => {
-    this.setState({ email: ev.target.value });
   };
 
   handleSubmit = (ev) => {
     ev.preventDefault();
+  };
 
-    this.props.handleAuth({
-      uid: 'asjdfa',
-      displayName: this.state.email,
-      email: this.state.email,
-    });
-  }
-
-  // sign in with google
+  // sign in
   authenticate = (provider) => {
     auth
       .signInWithPopup(provider);
-  }
+  };
 
   render() {
     return (
@@ -76,6 +65,15 @@ class SignIn extends Component {
             >
               <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
               Sign In With Github
+            </button>
+
+            <button
+              type="button"
+              className={css(styles.button)}
+              onClick={() => this.authenticate(facebookProvider)}
+            >
+              <i className={`fab fa-facebook ${css(styles.brandIcon)}`}></i>
+              Sign In With Facebook
             </button>
           </form>
 
