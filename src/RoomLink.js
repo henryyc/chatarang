@@ -1,23 +1,17 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { NavLink } from 'react-router-dom';
 
-const RoomLink = ({ room, loadRoom }) => {
-
-  const handleClick = (ev) => {
-    ev.preventDefault();
-
-    loadRoom(room);
-  };
+const RoomLink = ({ room }) => {
 
   return (
     <li className={css(styles.item)}>
-      <a
-        href=""
+      <NavLink
+        to={`/rooms/${room.name}`}
         className={css(styles.link)}
-        onClick={handleClick}
       >
         {room.name}
-      </a>
+      </NavLink>
     </li>
   )
 };

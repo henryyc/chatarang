@@ -20,7 +20,7 @@ const Sidebar = ({ user, signOut, loadRoom }) => {
         Chatarang
       </h1>
 
-      <RoomList loadRoom={loadRoom} />
+      <RoomList />
     </aside>
   );
 };
