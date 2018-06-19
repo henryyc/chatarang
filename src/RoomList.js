@@ -70,14 +70,9 @@ class RoomList extends Component {
                     Object.keys(this.state.rooms).map(
                       (roomName) => {
                         const currRoom = this.state.rooms[roomName];
-                        console.log(currRoom.members);
-                        console.log(this.props.user.uid);
 
                         if (currRoom.public || this.findUID(currRoom)) {
-                          return (<RoomLink
-                            key={roomName}
-                            room={currRoom}
-                          />);
+                          return (<RoomLink key={roomName} room={currRoom} />);
                         }
                         else {
                           return null;
