@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Message from './Message';
 
-const MessageList = ({ messages, room }) => {
+class MessageList extends Component {
 
-  return (
-    <div
-      className="MessageList"
-      style={styles.list}
-    >
-      <div className="roomAnnouncement" style={styles.announcement}>
-        <h3 style={styles.h3}>#{room.name}</h3>
-        <p>This is the very beginning of the #{room.name} room.</p>
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages.length < this.props.messages.length) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  render() {
+    const { messages, room } = this.props;
+
+    return (
+      <div
+        className="MessageList"
+        style={styles.list}
+      >
+        <div className="roomAnnouncement" style={styles.announcement}>
+          <h3 style={styles.h3}>#{room.name}</h3>
+          <p>This is the very beginning of the #{room.name} room.</p>
+        </div>
+
+        {
+          messages.map((msg) => (
+            <Message key={msg.id} message={msg} />
+          ))
+        }
+        <div ref={el => this.messagesEnd = el}></div>
       </div>
-
-      {
-        messages.map((msg) => (
-          <Message key={msg.id} message={msg} />
-        ))
-      }
-    </div>
-  );
+    );
+  }
 };
 
 const styles = {
@@ -28,7 +43,7 @@ const styles = {
     backgroundColor: 'white',
     flex: 1,
     paddingBottom: '1rem',
-    overflowY: 'scroll',//make this auto scroll
+    overflowY: 'scroll',
   },
 
   announcement: {
