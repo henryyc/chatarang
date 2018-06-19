@@ -7,18 +7,15 @@ import Main from './Main';
 import { auth } from './base';
 
 class App extends Component {
-  state = {
-    user: {},
+  constructor(props) {
+    super(props);
+
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+    this.state = { user };
   }
 
+  // sync auth w/firebase
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (user) {
-      this.setState({ user });
-    }
-
-    // sync auth w/firebase
     auth.onAuthStateChanged(
       (user) => {
         if (user) {
