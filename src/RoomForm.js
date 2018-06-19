@@ -48,7 +48,8 @@ class RoomForm extends Component {
     ev.preventDefault();
 
     this.props.addRoom(this.state.room);
-    this.props.history.goBack();
+    // this.props.history.goBack();
+    this.props.history.push(`/rooms/${this.state.room.name}`)
   };
 
   render() {

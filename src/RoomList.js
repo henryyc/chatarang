@@ -29,6 +29,15 @@ class RoomList extends Component {
     this.setState({ rooms });
   };
 
+  findUID = (currRoom) => {
+    for (let i = 0; i < currRoom.members.length; i++) {
+      if (currRoom.members[i].value === this.props.user.uid) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   render() {
     return (
       <Switch>
@@ -59,12 +68,21 @@ class RoomList extends Component {
                 <ul className={css(styles.list)}>
                   {
                     Object.keys(this.state.rooms).map(
-                      (roomName) => (
-                        <RoomLink
-                          key={roomName}
-                          room={this.state.rooms[roomName]}
-                        />
-                      )
+                      (roomName) => {
+                        const currRoom = this.state.rooms[roomName];
+                        console.log(currRoom.members);
+                        console.log(this.props.user.uid);
+
+                        if (currRoom.public || this.findUID(currRoom)) {
+                          return (<RoomLink
+                            key={roomName}
+                            room={currRoom}
+                          />);
+                        }
+                        else {
+                          return null;
+                        }
+                      }
                     )
                   }
                 </ul>
