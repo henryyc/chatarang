@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ChatHeader = ({ room }) => {
+const ChatHeader = ({ room, removeRoom }) => {
   return (
     <div
       className="ChatHeader"
@@ -14,6 +14,13 @@ const ChatHeader = ({ room }) => {
           {room.description}
         </p>
       </div>
+
+      <button
+        onClick={() => removeRoom(room)}
+        style={styles.button}
+      >
+        <i className="far fa-trash-alt"></i>
+      </button>
     </div>
   );
 };
@@ -26,6 +33,7 @@ const styles = {
     padding: '0 1rem',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   h2: {
@@ -37,6 +45,16 @@ const styles = {
     color: '#999',
     margin: 0,
     fontSize: '0.8rem',
+  },
+
+  button: {
+    border: 0,
+    outline: 0,
+    backgroundColor: 'transparent',
+    padding: 0,
+    cursor: 'pointer',
+    fontSize: '1rem',
+    color: 'rgba(0, 0, 0, 0.4)',
   },
 }
 
