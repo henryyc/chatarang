@@ -30,12 +30,38 @@ class Main extends Component {
     }
   }
 
+  filteredRooms = () => {
+    return this.filteredRoomNames()
+               .map(roomName => this.state.rooms[roomName]);
+  };
+
+  filteredRoomNames = () => {
+    return Object.keys(this.state.rooms)
+          .filter(roomName => {
+            const room = this.state.rooms[roomName];
+
+            if (!room) {
+              return false;
+            }
+
+            return room.public || this.includesCurrentUser(room);
+          });
+  };
+
+  includesCurrentUser = (room) => {
+    const members = room.members || [];
+
+    return members.find(
+      userOption => userOption.value === this.props.user.uid
+    );
+  };
+
   loadRoom = (roomName) => {
     if (roomName === 'new') {
       return null;
     }
 
-    const room = this.state.rooms[roomName];
+    const room = this.filteredRooms().find(room => room.name === roomName);
 
     if (room) {
       this.setState({ room });
@@ -52,6 +78,16 @@ class Main extends Component {
 
     this.props.history.push(`/rooms/${realRoomName}`);
   }
+
+  // add a new room
+  addRoom = (room) => {
+    const rooms = {...this.state.rooms};
+    rooms[room.name] = room;
+    this.setState(
+      { rooms },
+      () => this.props.history.push(`/rooms/${room.name}`)
+    );
+  };
 
   removeRoom = (room) => {
     const rooms = {...this.state.rooms};
@@ -70,6 +106,8 @@ class Main extends Component {
           user={this.props.user}
           users={this.props.users}
           signOut={this.props.signOut}
+          rooms={this.filteredRooms()}
+          addRoom={this.addRoom}
         />
         <Chat
           user={this.props.user}

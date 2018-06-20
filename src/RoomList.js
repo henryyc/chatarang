@@ -4,48 +4,19 @@ import { Route, Switch, Link } from 'react-router-dom';
 
 import RoomLink from './RoomLink';
 import RoomForm from './RoomForm';
-import base from './base';
 
 class RoomList extends Component {
-  state = {
-    rooms: {},
-  };
-
-  // get list of rooms from firebase
-  componentDidMount() {
-    base.syncState(
-      'rooms',
-      {
-        context: this,
-        state: 'rooms',
-      }
-    )
-  }
-
-  // add a new room
-  addRoom = (room) => {
-    const rooms = {...this.state.rooms};
-    rooms[room.name] = room;
-    this.setState({ rooms });
-  };
-
-  findUID = (currRoom) => {
-    for (let i = 0; i < currRoom.members.length; i++) {
-      if (currRoom.members[i].value === this.props.user.uid) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   render() {
+    const { rooms } = this.props;
+
     return (
       <Switch>
         <Route
           path="/rooms/new"
           render={(navProps) => (
             <RoomForm
-              addRoom={this.addRoom}
+              addRoom={this.props.addRoom}
               users={this.props.users}
               {...navProps}
             />
@@ -67,16 +38,9 @@ class RoomList extends Component {
 
                 <ul className={css(styles.list)}>
                   {
-                    Object.keys(this.state.rooms).map(
+                    Object.keys(rooms).map(
                       (roomName) => {
-                        const currRoom = this.state.rooms[roomName];
-
-                        if (currRoom.public || this.findUID(currRoom)) {
-                          return (<RoomLink key={roomName} room={currRoom} />);
-                        }
-                        else {
-                          return null;
-                        }
+                        return (<RoomLink key={roomName} room={rooms[roomName]} />);
                       }
                     )
                   }
