@@ -8,7 +8,7 @@ const ChatHeader = ({ room, removeRoom }) => {
     >
       <div className="roomInfo">
         <h2 style={styles.h2}>
-          #{room.name}
+          #{room.displayName}
         </h2>
         <p style={styles.p}>
           {room.description}
