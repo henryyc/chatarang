@@ -60,7 +60,7 @@ class SignIn extends Component {
 
             <button
               type="button"
-              className={css(styles.button)}
+              className={css(styles.button, styles.github)}
               onClick={() => this.authenticate(githubProvider)}
             >
               <i className={`fab fa-github ${css(styles.brandIcon)}`}></i>
@@ -69,7 +69,7 @@ class SignIn extends Component {
 
             <button
               type="button"
-              className={css(styles.button)}
+              className={css(styles.button, styles.facebook)}
               onClick={() => this.authenticate(facebookProvider)}
             >
               <i className={`fab fa-facebook ${css(styles.brandIcon)}`}></i>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   button: {
     display: 'block',
-    margin: '0 auto',
+    margin: '0 auto 1rem',
     padding: '1rem 2rem',
     fontSize: '1.2rem',
     borderRadius: '1rem',
@@ -157,6 +157,14 @@ const styles = StyleSheet.create({
     color: 'white',
     width: '20rem',
   },
+  github: {
+    backgroundColor: '#6e5494',
+  },
+  facebook: {
+    backgroundColor: '#3b5998',
+    marginBottom: 0,
+  },
+
   brandIcon: {
     marginRight: '1rem',
   },

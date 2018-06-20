@@ -28,10 +28,10 @@ class DirectMessageList extends Component {
             () => (
               <nav className={`RoomList ${css(styles.nav)}`}>
                 <div className={css(styles.heading)}>
-                  <h2 className={css(styles.h2)}>Rooms</h2>
+                  <h2 className={css(styles.h2)}>Direct Messages</h2>
                   <Link
                     className={css(styles.button)}
-                    to="/rooms/new"
+                    to="/rooms/new-direct-message"
                   >
                     <i className="fas fa-plus-circle"></i>
                   </Link>

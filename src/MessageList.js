@@ -23,7 +23,7 @@ class MessageList extends Component {
         style={styles.list}
       >
         <div className="roomAnnouncement" style={styles.announcement}>
-          <h3 style={styles.h3}>#{room.name}</h3>
+          <h3 style={styles.h3}>#{room.displayName}</h3>
           {
             room.dm
             ? <p>This is the very beginning of the direct message.</p>
