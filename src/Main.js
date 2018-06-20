@@ -57,7 +57,7 @@ class Main extends Component {
   };
 
   loadRoom = (roomName) => {
-    if (roomName === 'new') {
+    if (roomName === 'new' || roomName === 'new-direct-message') {
       return null;
     }
 

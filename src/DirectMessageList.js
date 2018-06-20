@@ -3,21 +3,19 @@ import { StyleSheet, css } from 'aphrodite';
 import { Route, Switch, Link } from 'react-router-dom';
 
 import RoomLink from './RoomLink';
-import RoomForm from './RoomForm';
-
 import DirectMessageForm from './DirectMessageForm';
 
-class RoomList extends Component {
+class DirectMessageList extends Component {
 
   render() {
-    const rooms = this.props.rooms.filter(room => !room.dm);
+    const rooms = this.props.rooms.filter(room => room.dm);
 
     return (
       <Switch>
         <Route
-          path="/rooms/new"
+          path="/rooms/new-direct-message"
           render={(navProps) => (
-            <RoomForm
+            <DirectMessageForm
               addRoom={this.props.addRoom}
               users={this.props.users}
               {...navProps}
@@ -98,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RoomList;
+export default DirectMessageList;
