@@ -25,7 +25,7 @@ class Message extends Component {
     const reactions = {...message.reactions};
 
     // add new reaction
-    if (!reactions[emoji.id]) {
+    if (!reactions[emoji.id] || !((reactions[emoji.id]) instanceof Object)) {
       const users = new Set();
       users.add(message.user.uid);
 
@@ -49,6 +49,7 @@ class Message extends Component {
     message.reactions = reactions;
     console.log(message.reactions)
 
+    this.props.handleReaction(message);
     this.togglePicker();
   }
 

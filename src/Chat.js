@@ -49,8 +49,9 @@ class Chat extends Component {
       user: this.props.user,
       body,
       createdAt: Date.now(),
-      reactions: {},
+      reactions: "placeholder",
     });
+    console.log(messages);
 
     this.setState({ messages });
   }
@@ -59,7 +60,7 @@ class Chat extends Component {
     return (
       <div className="Chat" style={styles}>
         <ChatHeader room={this.props.room} removeRoom={this.props.removeRoom}/>
-        <MessageList messages={this.state.messages} room={this.props.room} />
+        <MessageList messages={this.state.messages} room={this.props.room} update={(messages) => this.setState({ messages })}/>
         <MessageForm addMessage={this.addMessage} />
       </div>
      );
