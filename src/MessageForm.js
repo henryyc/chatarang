@@ -10,10 +10,8 @@ class MessageForm extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
 
-    if (this.state.body !== "") {
-      this.props.addMessage(this.state.body);
-      this.setState({ body: '' });
-    }
+    this.props.addMessage(this.state.body);
+    this.setState({ body: '' });
   }
 
   // update text form display
@@ -31,6 +29,7 @@ class MessageForm extends Component {
           <i className="fas fa-comment-alt"></i>
         </div>
         <input
+          required
           type="text"
           name="body"
           placeholder="Type a message..."

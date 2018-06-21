@@ -81,6 +81,7 @@ class Main extends Component {
 
   // add a new room
   addRoom = (room) => {
+    room.displayName = room.name;
     const { user } = this.props;
 
     if (!room.public) {

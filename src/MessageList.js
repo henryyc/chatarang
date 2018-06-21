@@ -14,15 +14,6 @@ class MessageList extends Component {
     this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
   };
 
-  handleReaction = (msg) => {
-    for (let i = 0; i < this.props.messages.length; i++) {
-      if (this.props.messages[i].id === msg.id) {
-        this.props.messages[i] = msg;
-      }
-    }
-    this.props.update(this.props.messages);
-  }
-
   render() {
     const { messages, room } = this.props;
 
@@ -42,7 +33,7 @@ class MessageList extends Component {
 
         {
           messages.map((msg) => (
-            <Message key={msg.id} message={msg} handleReaction={this.handleReaction} user={this.props.user} />
+            <Message key={msg.id} message={msg} addReaction={this.props.addReaction} />
           ))
         }
         <div ref={el => this.messagesEnd = el}></div>

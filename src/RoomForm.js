@@ -81,6 +81,7 @@ class RoomForm extends Component {
                 Room Name
               </label>
               <input
+                required
                 type="text"
                 name="name"
                 value={this.state.room.name}
@@ -94,6 +95,7 @@ class RoomForm extends Component {
                 Description
               </label>
               <input
+                required
                 type="text"
                 name="description"
                 value={this.state.room.description}

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import 'emoji-mart/css/emoji-mart.css'
-import { Picker, Emoji } from 'emoji-mart';
+import { Picker } from 'emoji-mart';
 
 import Avatar from './Avatar';
 import Metadata from './Metadata';
+import Reaction from './Reaction';
 
 class Message extends Component {
   state = {
@@ -16,48 +17,14 @@ class Message extends Component {
   }
 
   handleEmojiSelect = (emoji) => {
-    const { message } = this.props;
+    this.props.addReaction(this.props.message, emoji.colons);
 
-    if (!message.reactions) {
-      message.reactions = {};
-    }
-
-    const reactions = {...message.reactions};
-
-    // add new reaction
-    if (!reactions[emoji.id] || !((reactions[emoji.id]) instanceof Object)) {
-      let users = new Set();
-      users.add(this.props.user.uid);
-
-      reactions[emoji.id] = {
-        freq: 1,
-        likedBy: users,
-      };
-    }
-    // update existing reaction
-    else {
-      let users = reactions[emoji.id].likedBy;
-      if (!users) {
-        users = new Set();
-      }
-      users.add(this.props.user.uid);
-      console.log(users)
-
-      reactions[emoji.id] = {
-        freq: users.size,
-        likedBy: users,
-      };
-    }
-
-    // update message with new reaction
-    message.reactions = reactions;
-
-    this.props.handleReaction(message);
     this.togglePicker();
   }
 
   render() {
     const { message } = this.props;
+    const reactions = message.reactions || [];
 
     return (
       <div className={`Message ${css(styles.message)}`}>
@@ -68,19 +35,20 @@ class Message extends Component {
           <div className="body">
             {message.body}
           </div>
-          <div className={css(styles.reactions)}>
+          <div className={css(styles.reactionList)}>
             {
-              message.reactions
-              ?  Object.keys(message.reactions).map(
-                  (id) => {
-                    return (
-                      <div key={id}>
-                        <Emoji emoji={id} set='emojione' size={16} /> {message.reactions[id].freq}
-                      </div>
-                    );
-                  }
-                )
-              : null
+              Object.keys(reactions).map(
+                (emoji) => {
+                  return (
+                    <Reaction
+                      key={emoji}
+                      message={message}
+                      emoji={emoji}
+                      addReaction={this.props.addReaction}
+                    />
+                  );
+                }
+              )
             }
           </div>
 
@@ -127,8 +95,8 @@ const styles = StyleSheet.create({
     outline: 0,
     backgroundColor: 'transparent',
     padding: 0,
-    fontSize: '1rem',
     color: '#ccc',
+    fontSize: '1rem',
     cursor: 'pointer',
     position: 'absolute',
     top: '0.5rem',
@@ -139,8 +107,10 @@ const styles = StyleSheet.create({
     },
   },
 
-  reactions: {
-    display: 'inline-block',
+  reactionList: {
+    display: 'flex',
+    marginTop: '0.5rem',
+    flexWrap: 'wrap',
   },
 });
 
