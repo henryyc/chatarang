@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart';
+import { Picker, Emoji } from 'emoji-mart';
 
 import Avatar from './Avatar';
 import Metadata from './Metadata';
@@ -16,7 +16,39 @@ class Message extends Component {
   }
 
   handleEmojiSelect = (emoji) => {
-    console.log(emoji);
+    const { message } = this.props;
+
+    if (!message.reactions) {
+      message.reactions = {};
+    }
+
+    const reactions = {...message.reactions};
+
+    // add new reaction
+    if (!reactions[emoji.id]) {
+      const users = new Set();
+      users.add(message.user.uid);
+
+      reactions[emoji.id] = {
+        freq: 1,
+        likedBy: users,
+      };
+    }
+    // update existing reaction
+    else {
+      const users = reactions[emoji.id].likedBy;
+      users.add(message.user.uid);
+
+      reactions[emoji.id] = {
+        freq: users.size,
+        likedBy: users,
+      };
+    }
+
+    // update message with new reaction
+    message.reactions = reactions;
+    console.log(message.reactions)
+
     this.togglePicker();
   }
 
@@ -31,6 +63,21 @@ class Message extends Component {
           <Metadata message={message} />
           <div className="body">
             {message.body}
+          </div>
+          <div className={css(styles.reactions)}>
+            {
+              message.reactions
+              ?  Object.keys(message.reactions).map(
+                  (id) => {
+                    return (
+                      <div key={id}>
+                        <Emoji emoji={id} set='emojione' size={16} /> {message.reactions[id].freq}
+                      </div>
+                    );
+                  }
+                )
+              : null
+            }
           </div>
 
           <button
@@ -86,6 +133,10 @@ const styles = StyleSheet.create({
     ':hover': {
       color: '#3366ff',
     },
+  },
+
+  reactions: {
+    display: 'inline-block',
   },
 });
 
