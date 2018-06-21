@@ -59,7 +59,9 @@ class Chat extends Component {
     message.reactions = message.reactions || {};
     message.reactions[emoji] = message.reactions[emoji] || [];
 
-    message.reactions[emoji].push(this.props.user);
+    if (message.reactions[emoji].indexOf(this.props.user.uid) === -1) {
+      message.reactions[emoji].push(this.props.user.uid);
+    }
 
     const messages = [...this.state.messages];
     const i = messages.findIndex(msg => msg.id === message.id);

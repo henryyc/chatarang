@@ -112,12 +112,12 @@ const styles = StyleSheet.create({
     marginTop: '0.5rem',
     flexWrap: 'wrap',
   },
-})
+});
 
 const pickerStyles = {
   position: 'absolute',
   top: '-20rem',
   right: '2rem',
-}
+};
 
 export default Message;
