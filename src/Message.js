@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: '0.5rem',
     flexWrap: 'wrap',
   },
-});
+})
 
 const pickerStyles = {
   position: 'absolute',

@@ -52,7 +52,6 @@ class RoomForm extends Component {
     ev.preventDefault();
 
     this.props.addRoom(this.state.room);
-    // this.props.history.goBack();
     this.props.history.push(`/rooms/${this.state.room.name}`)
   };
 
@@ -144,6 +143,7 @@ class RoomForm extends Component {
 const styles = StyleSheet.create({
   roomForm: {
     position: 'absolute',
+    zIndex: 1000,
     top: 0,
     left: 0,
     height: '100vh',
@@ -173,7 +173,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
     marginBottom: '2rem',
-    padding:'0 2rem 2rem 2rem',
+    paddingBottom: '2rem',
+    paddingLeft: '2rem',
+    paddingRight: '2rem',
   },
 
   label: {
@@ -183,7 +185,6 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: '20rem',
     fontSize: '1.5rem',
     border: 0,
     borderBottom: '1px solid black',
