@@ -42,7 +42,7 @@ class MessageList extends Component {
 
         {
           messages.map((msg) => (
-            <Message key={msg.id} message={msg} handleReaction={this.handleReaction}/>
+            <Message key={msg.id} message={msg} handleReaction={this.handleReaction} user={this.props.user} />
           ))
         }
         <div ref={el => this.messagesEnd = el}></div>

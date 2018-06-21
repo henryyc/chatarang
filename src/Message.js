@@ -26,8 +26,8 @@ class Message extends Component {
 
     // add new reaction
     if (!reactions[emoji.id] || !((reactions[emoji.id]) instanceof Object)) {
-      const users = new Set();
-      users.add(message.user.uid);
+      let users = new Set();
+      users.add(this.props.user.uid);
 
       reactions[emoji.id] = {
         freq: 1,
@@ -36,8 +36,12 @@ class Message extends Component {
     }
     // update existing reaction
     else {
-      const users = reactions[emoji.id].likedBy;
-      users.add(message.user.uid);
+      let users = reactions[emoji.id].likedBy;
+      if (!users) {
+        users = new Set();
+      }
+      users.add(this.props.user.uid);
+      console.log(users)
 
       reactions[emoji.id] = {
         freq: users.size,
@@ -47,7 +51,6 @@ class Message extends Component {
 
     // update message with new reaction
     message.reactions = reactions;
-    console.log(message.reactions)
 
     this.props.handleReaction(message);
     this.togglePicker();
