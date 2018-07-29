@@ -1,3 +1,5 @@
 # Chatarang
 
-Slack clone being built with React.js
+Slack clone built with React.js and Firebase.
+
+Built as part of XTBC S2 2018
