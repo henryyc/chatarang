@@ -15,7 +15,13 @@ class SignIn extends Component {
   // sign in
   authenticate = (provider) => {
     auth
-      .signInWithPopup(provider);
+      .signInWithPopup(provider)
+      .then(function(result) {})
+      .catch(function(error) {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          alert("An account already exists with the same email address (" + error.email + ") but different sign-in credentials. Sign in using a provider associated with this email address.");
+        }
+      });
   };
 
   render() {
@@ -69,11 +75,12 @@ class SignIn extends Component {
 
             <button
               type="button"
+              disabled="true"
               className={css(styles.button, styles.facebook)}
               onClick={() => this.authenticate(facebookProvider)}
             >
               <i className={`fab fa-facebook ${css(styles.brandIcon)}`}></i>
-              Sign In With Facebook
+              Sign In With Facebook (WIP)
             </button>
           </form>
 
